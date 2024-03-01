@@ -16,19 +16,20 @@ const server = http.createServer(app);
 const io=socketio(server);
 
 io.on('connection', (socket) => {
-    console.log('a user connected');  //socket id is unique for every user
+    console.log('a user connected',socket.id);  //socket id is unique for every user
     
-    socket.on('from_client',()=>{
-        console.log('event from client')
+    socket.on('msg_send',(data)=>{
+        console.log(data);
+        io.emit('msg_rcvd',data);  //for all socket in my web connection
+        //socket.emit('msg_rcvd',data)   //for same client only connection
+        //socket.broadcast.emit('msg_rcvd',data)  //msg from sender to remaining all connection without him. 
+        
     })
-
-    setInterval(()=>{
-        socket.emit("from_server");
-    },2000)
+  
 });
   
 
-app.use('/',express.static(__dirname+'/public'));  //in expresss to connect static file
+app.use('/',express.static(__dirname + '/public'));  //in expresss to connect static file
 
 
 
