@@ -1,4 +1,4 @@
-Make sure nodejs and npm installed
+Make sure nodejs and npm installed.
 Go inside the folder and execute the following command
 npm i
 npm start
